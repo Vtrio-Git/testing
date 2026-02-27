@@ -103,3 +103,7 @@ if (userCount === 0) {
 }
 
 module.exports = db;
+
+// Add new columns if they don't exist (safe migration)
+try { db.exec(`ALTER TABLE alerts ADD COLUMN logs_fetched INTEGER DEFAULT 0`); } catch(e) {}
+try { db.exec(`ALTER TABLE alerts ADD COLUMN logs_dir TEXT`); } catch(e) {}
